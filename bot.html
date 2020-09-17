@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body background="imagen.jpg">
+		<div></div>
+		<center><B><FONT COLOR="yellow">Hola esto es un bot, puedes ver la lista de las preguntas que le puedes hacer</FONT></center>
+		<br>
+		<br>
+		<center><img src="bob.gif"></center>
+		<br>
+		<br>
+		<center><a href="lista.html" style="color:#446FE1;text-decoration:underline;white-space:nowrap" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=es-419&amp;q=https://www.google.com/appserve/mkt/p/TgxFUAUCIm44ACtBQxexyxU7-tplTiLLgu3FINenil7f5oNem--l3V1VZrBxjE9XeACTzMzvrZphZgbcPvhwT2XLekFmQqSM_X4vj2qi9wN7kaqq-AIBqIilTfJ3ZdukgvaE3bAv2wwQGhjpFyNYFCzFY7bDNA3Y7JMmME29oorNmbAWzsmPrBwQHoSMt1CHvEo%3D&amp;source=gmail&amp;ust=1483332791294000&amp;usg=AFQjCNFv-gIxviv73FHLMnqaaxCfF5Nu4w">Ir a la lista</a></center>
+		<br>
+		<br>
+		<center><h1>Bot:</h1></center>
+		<center><input onchange="respond()"></center>
+		<script type="text/javascript">
+
+			var known = [
+				["hola", "hola, como estas?"],
+				["bien y tu", "bien gracias"],
+				["que bueno", ":)"],
+				["adios", "adios nos vemos"],
+				["tengo una pregunta","cual es tu pregunta?"]
+				["como te llamas","me llamo bot"]
+				["cuanto paises hay","hay 194 paises"]
+				["que es el covid 19","La COVID-19 es la enfermedad infecciosa causada por el coronavirus que se ha descubierto más recientemente. Tanto el nuevo virus como la enfermedad eran desconocidos antes de que estallara el brote en Wuhan (China) en diciembre de 2019."]
+				["cuentame un chiste","por que las focas del circo miran hacia arriba?, porque es donde estan los focos"]
+				["cuando naciste","naci el 17-09-2020"]
+				["por que no hay mas preguntas","porque cada dia se van sumando, y estas preguntas son temporal, van a ver preguntas como de historia, matematica, religion, tecnologia, artes, lenguage, musica, etc..."]
+				["cual es el objetivo de esto","el objetivo de esto es ayudar a los estudiantes, pero estas preguntas son temporales, despues van a ver preguntas como de historia, matematica, religion, tecnologia, musica, artes, lenguage, etc..."]
+			];
+
+			var input = document.querySelector('input');
+			var output = document.querySelector('div');
+
+			function postChat(text, poster) {
+				var bubble = document.createElement("p");
+				bubble.innerText = text;
+				bubble.className = poster;
+				output.appendChild(bubble);
+			}
+
+			function respond() {
+				var text = input.value;
+				input.value = "";
+				postChat(text, "user");
+				response = think(text);
+				postChat(response, "bot");
+			}
+
+			function filter(text) {
+				text = text.toLowerCase();
+				return(text);
+			}
+
+			function think(user) {
+				user = filter(user);
+
+				for (var [key, value] of known) {
+					if (key.includes('*')) {
+						key = key.split('*');
+
+						if (user.startsWith(key[0]) && user.endsWith(key[1])) {
+							firstIndex = key[0].length;
+							finalIndex = user.lastIndexOf(key[1]);
+							custom = user.slice(firstIndex, finalIndex);
+							return(value.replace('*', custom));
+						}
+					} else if (user == key) {
+						return(value);
+					}
+				}
+				return("No te entiendo, me lo puedes repetir? por favor");
+			}
+		</script>
+
+	</body>
+</html>
